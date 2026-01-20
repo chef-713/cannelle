@@ -1,0 +1,55 @@
+# Save this as: admin/config.yml
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  # Products Collection
+  - name: "products"
+    label: "Products"
+    folder: "content/products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Product Name", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text", hint: "Keep it short - 1 to 2 sentences"}
+      - {label: "Price", name: "price", widget: "string", hint: "e.g., $12.00"}
+      - {label: "Main Image", name: "mainImage", widget: "image"}
+      - {label: "Additional Image 1", name: "image1", widget: "image", required: false}
+      - {label: "Additional Image 2", name: "image2", widget: "image", required: false}
+      - {label: "YouTube Video URL", name: "videoUrl", widget: "string", required: false, hint: "Full YouTube URL"}
+      - {label: "Show 'New' Badge", name: "isNew", widget: "boolean", default: false}
+      - {label: "Available", name: "available", widget: "boolean", default: true, hint: "Turn off to hide this product"}
+      - {label: "Display Order", name: "order", widget: "number", default: 0, hint: "Lower numbers appear first"}
+
+  # Site Settings Collection
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "Hero Section"
+        name: "hero"
+        file: "content/settings/hero.json"
+        fields:
+          - {label: "Main Heading", name: "heading", widget: "string"}
+          - {label: "Tagline", name: "tagline", widget: "text"}
+
+      - label: "About Section"
+        name: "about"
+        file: "content/settings/about.json"
+        fields:
+          - {label: "Section Title", name: "title", widget: "string", default: "About Our Bakery"}
+          - {label: "Paragraph 1", name: "paragraph1", widget: "text"}
+          - {label: "Paragraph 2", name: "paragraph2", widget: "text"}
+
+      - label: "Baker Bio"
+        name: "baker"
+        file: "content/settings/baker.json"
+        fields:
+          - {label: "Section Title", name: "title", widget: "string", default: "Meet the Baker"}
+          - {label: "Baker Name", name: "name", widget: "string"}
+          - {label: "Baker Photo", name: "photo", widget: "image"}
+          - {label: "Bio Text", name: "bio", widget: "text"}
