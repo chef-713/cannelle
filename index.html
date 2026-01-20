@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Bakery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Alice&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F2F0EB;
+            color: #2D2D2D;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #F2F0EB;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #E8E6E1;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Uncial Antiqua', cursive;
+            font-size: 1.8rem;
+            color: #554319;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #554319;
+            transition: all 0.3s;
+        }
+
+        nav a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            color: #554319;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #6E5A2E;
+        }
+
+        /* Hero/Intro */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+            background-color: #FAF9F7;
+        }
+
+        .hero h1 {
+            font-family: 'Alice', serif;
+            font-size: 2.5rem;
+            color: #554319;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #6B6B6B;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: 'Alice', serif;
+            font-size: 2rem;
+            color: #554319;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background-color: #FAF9F7;
+            border: 1px solid #E8E6E1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(85, 67, 25, 0.15);
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            overflow: hidden;
+            background-color: #E8E6E1;
+        }
+
+        .product-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-name-band {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(85, 67, 25, 0.9);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .product-name {
+            font-family: 'Alice', serif;
+            font-size: 1.3rem;
+            color: #FAF9F7;
+            margin: 0;
+        }
+
+        /* About Section */
+        .about-section {
+            background-color: #FAF9F7;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .about-section p {
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* Chef Bio */
+        .chef-bio {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            background-color: #FAF9F7;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .chef-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #C4A05A;
+        }
+
+        .chef-text h3 {
+            font-family: 'Alice', serif;
+            font-size: 1.8rem;
+            color: #554319;
+            margin-bottom: 1rem;
+        }
+
+        .chef-text p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* Social Section */
+        .social-section {
+            text-align: center;
+            padding: 2rem;
+            background-color: #FAF9F7;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background-color: #554319;
+            color: #FAF9F7;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: #6E5A2E;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            fill: #FAF9F7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #FAF9F7;
+            border-top: 1px solid #E8E6E1;
+            padding: 2rem;
+            text-align: center;
+            color: #6B6B6B;
+            font-size: 0.9rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem;
+        }
+        
+        @media (min-width: 769px) {
+            .modal.active {
+                align-items: center;
+            }
+        }
+
+        .modal-content {
+            background-color: #FAF9F7;
+            border-radius: 12px;
+            max-width: 900px;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            color: #554319;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            color: #6E5A2E;
+        }
+        
+        @media (max-width: 768px) {
+            .modal-close {
+                background-color: #FAF9F7;
+                border-radius: 50%;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .modal-images {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .modal-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .modal-thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .modal-thumbnail:hover {
+            border-color: #C4A05A;
+        }
+
+        .modal-details h2 {
+            font-family: 'Alice', serif;
+            font-size: 2rem;
+            color: #554319;
+            margin-bottom: 1rem;
+        }
+
+        .modal-details p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #E8E6E1;
+            background-color: #FAF9F7;
+            color: #554319;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background-color: #F2F0EB;
+        }
+
+        .quantity-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .add-to-cart-btn {
+            padding: 1rem 2rem;
+            background-color: #7A6039;
+            color: #FAF9F7;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #96774A;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #F2F0EB;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid #E8E6E1;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            header {
+                position: relative;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 0;
+                padding: 1.5rem;
+                max-height: 95vh;
+                overflow-y: auto;
+            }
+            
+            .modal.active {
+                padding: 1rem;
+            }
+
+            .modal-main-image {
+                height: 250px;
+            }
+
+            .chef-bio {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* New badge using accent color */
+        .new-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #8B9B87;
+            color: #FAF9F7;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">Artisan Bakery</div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#chef">Baker</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Flavor-Forward Baked Goods</h1>
+        <p>Sophisticated, artisan creations for those who appreciate exceptional quality and taste</p>
+    </section>
+
+    <!-- Products -->
+    <div class="container">
+        <h2 class="section-title" id="products">Our Products</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card" onclick="openModal(1)">
+                <div class="product-image-container">
+                    <span class="new-badge">New</span>
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600" alt="Sourdough Loaf" class="product-image">
+                    <div class="product-name-band">
+                        <h3 class="product-name">Artisan Sourdough</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card" onclick="openModal(2)">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600" alt="Croissant" class="product-image">
+                    <div class="product-name-band">
+                        <h3 class="product-name">Butter Croissants</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card" onclick="openModal(3)">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=600" alt="Cinnamon Rolls" class="product-image">
+                    <div class="product-name-band">
+                        <h3 class="product-name">Cinnamon Rolls</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card" onclick="openModal(1)">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=600" alt="Baguette" class="product-image">
+                    <div class="product-name-band">
+                        <h3 class="product-name">French Baguette</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card" onclick="openModal(2)">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600" alt="Danish" class="product-image">
+                    <div class="product-name-band">
+                        <h3 class="product-name">Fruit Danish</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card" onclick="openModal(3)">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1612182062366-9f871c8e0166?w=600" alt="Focaccia" class="product-image">
+                    <div class="product-name-band">
+                        <h3 class="product-name">Rosemary Focaccia</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="about-section" id="about">
+            <h2 class="section-title">About Our Bakery</h2>
+            <p>We're a micro-bakery dedicated to crafting exceptional baked goods that elevate everyday moments. Using traditional techniques and premium ingredients, we create flavors that are both sophisticated and comforting.</p>
+            <p>Every item is baked fresh in small batches, ensuring quality and attention to detail that larger bakeries simply can't match.</p>
+        </div>
+
+        <!-- Chef Bio -->
+        <div class="chef-bio" id="chef">
+            <img src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=400" alt="Chef" class="chef-image">
+            <div class="chef-text">
+                <h3>Meet the Baker</h3>
+                <p>With over 15 years of experience in artisan baking, our chef brings passion and precision to every creation. Trained in classical French techniques and inspired by modern flavor combinations, each recipe is thoughtfully developed to delight your senses.</p>
+            </div>
+        </div>
+
+        <!-- Social Section -->
+        <div class="social-section">
+            <h2 class="section-title">Follow Our Journey</h2>
+            <div class="social-links">
+                <a href="#" target="_blank">
+                    <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    <span>Facebook</span>
+                </a>
+                <a href="#" target="_blank">
+                    <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span>Instagram</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Artisan Bakery. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-body">
+                <div class="modal-images">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800" alt="Product" class="modal-main-image" id="modalMainImage">
+                    <div class="modal-thumbnails">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=200" alt="Thumbnail 1" class="modal-thumbnail" onclick="changeMainImage(this.src)">
+                        <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=200" alt="Thumbnail 2" class="modal-thumbnail" onclick="changeMainImage(this.src)">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=200" alt="Thumbnail 3" class="modal-thumbnail" onclick="changeMainImage(this.src)">
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 8px;"></iframe>
+                    </div>
+                </div>
+                <div class="modal-details">
+                    <h2 id="modalProductName">Artisan Sourdough</h2>
+                    <p id="modalProductDescription">Hand-crafted sourdough with a perfectly crisp crust and tender, airy crumb. Naturally leavened over 24 hours for complex flavor.</p>
+                    
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+                        <span class="quantity-value" id="quantityValue">1</span>
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    
+                    <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuantity = 1;
+
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        function openModal(productId) {
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeMainImage(src) {
+            const newSrc = src.replace('w=200', 'w=800');
+            document.getElementById('modalMainImage').src = newSrc;
+        }
+
+        function increaseQuantity() {
+            currentQuantity++;
+            document.getElementById('quantityValue').textContent = currentQuantity;
+        }
+
+        function decreaseQuantity() {
+            if (currentQuantity > 1) {
+                currentQuantity--;
+                document.getElementById('quantityValue').textContent = currentQuantity;
+            }
+        }
+
+        function addToCart() {
+            alert(`Added ${currentQuantity} item(s) to cart!`);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
