@@ -1,5 +1,4 @@
 # Save this as: admin/config.yml
-# This replaces your existing config.yml
 
 backend:
   name: git-gateway
@@ -30,7 +29,6 @@ collections:
               - {label: "YouTube Video URL", name: "videoUrl", widget: "string", required: false, hint: "Full YouTube URL"}
               - {label: "Show 'New' Badge", name: "isNew", widget: "boolean", default: false}
               - {label: "Available", name: "available", widget: "boolean", default: true, hint: "Turn off to hide this product"}
-              - {label: "Display Order", name: "order", widget: "number", default: 0, hint: "Lower numbers appear first"}
               - {label: "Display Order", name: "order", widget: "number", default: 0, hint: "Lower numbers appear first"}
 
   # Site Settings Collection
