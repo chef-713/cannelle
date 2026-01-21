@@ -577,7 +577,7 @@
             <div id="aboutContent" class="loading">Loading</div>
         </div>
 
-        <div class="baker-bio" id="baker">
+        <div id="baker" class="baker-bio">
             <div id="bakerContent" class="loading">Loading</div>
         </div>
 
@@ -730,6 +730,7 @@
                 const data = await res.json();
                 const bakerEl = document.getElementById('bakerContent');
                 bakerEl.classList.remove('loading');
+                bakerEl.style.display = 'contents';
                 bakerEl.innerHTML = `
                     <img src="${data.photo}" alt="${data.name}" class="baker-image" onerror="this.src='https://via.placeholder.com/200?text=Baker'">
                     <div class="baker-text">
