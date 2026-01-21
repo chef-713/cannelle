@@ -200,7 +200,11 @@
             padding: 3rem 2rem;
             margin-bottom: 3rem;
             border-radius: 8px;
+        }
+
+        .about-section .section-title {
             text-align: center;
+            margin-bottom: 2rem;
         }
 
         .about-section p {
@@ -208,11 +212,12 @@
             margin: 0 auto 1.5rem;
             font-size: 1.05rem;
             line-height: 1.8;
+            text-align: center;
         }
 
         .baker-bio {
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
             align-items: center;
             background-color: #FAF9F7;
             padding: 2rem;
@@ -642,13 +647,17 @@
                 const res = await fetch('content/settings/hero.json');
                 if (!res.ok) throw new Error('Failed to load hero');
                 const data = await res.json();
-                document.getElementById('heroContent').innerHTML = `
+                const heroEl = document.getElementById('heroContent');
+                heroEl.classList.remove('loading');
+                heroEl.innerHTML = `
                     <h1>${data.heading}</h1>
                     <p>${data.tagline}</p>
                 `;
             } catch (error) {
                 console.error('Error loading hero:', error);
-                document.getElementById('heroContent').innerHTML = `
+                const heroEl = document.getElementById('heroContent');
+                heroEl.classList.remove('loading');
+                heroEl.innerHTML = `
                     <h1>Flavor-Forward Baked Goods</h1>
                     <p>Sophisticated, artisan creations for those who appreciate exceptional quality and taste</p>
                 `;
@@ -696,16 +705,20 @@
                 const res = await fetch('content/settings/about.json');
                 if (!res.ok) throw new Error('Failed to load about');
                 const data = await res.json();
-                document.getElementById('aboutContent').innerHTML = `
+                const aboutEl = document.getElementById('aboutContent');
+                aboutEl.classList.remove('loading');
+                aboutEl.innerHTML = `
                     <h2 class="section-title">${data.title}</h2>
                     <p>${data.paragraph1}</p>
                     <p>${data.paragraph2}</p>
                 `;
             } catch (error) {
                 console.error('Error loading about:', error);
-                document.getElementById('aboutContent').innerHTML = `
+                const aboutEl = document.getElementById('aboutContent');
+                aboutEl.classList.remove('loading');
+                aboutEl.innerHTML = `
                     <h2 class="section-title">About Our Bakery</h2>
-                    <p>Loading...</p>
+                    <p>Unable to load content.</p>
                 `;
             }
         }
@@ -715,7 +728,9 @@
                 const res = await fetch('content/settings/baker.json');
                 if (!res.ok) throw new Error('Failed to load baker');
                 const data = await res.json();
-                document.getElementById('bakerContent').innerHTML = `
+                const bakerEl = document.getElementById('bakerContent');
+                bakerEl.classList.remove('loading');
+                bakerEl.innerHTML = `
                     <img src="${data.photo}" alt="${data.name}" class="baker-image" onerror="this.src='https://via.placeholder.com/200?text=Baker'">
                     <div class="baker-text">
                         <h3>${data.title}</h3>
@@ -724,7 +739,9 @@
                 `;
             } catch (error) {
                 console.error('Error loading baker:', error);
-                document.getElementById('bakerContent').innerHTML = `<p>Loading baker information...</p>`;
+                const bakerEl = document.getElementById('bakerContent');
+                bakerEl.classList.remove('loading');
+                bakerEl.innerHTML = `<p>Unable to load baker information.</p>`;
             }
         }
 

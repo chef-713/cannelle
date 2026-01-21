@@ -12,12 +12,15 @@ collections:
   # Products Collection (Single File)
   - name: "products"
     label: "Products"
-    file: "content/products.json"
-    fields:
+    files:
       - label: "Products"
         name: "products"
-        widget: "list"
+        file: "content/products.json"
         fields:
+          - label: "Products"
+            name: "products"
+            widget: "list"
+            fields:
           - {label: "Product Name", name: "title", widget: "string"}
           - {label: "Description", name: "description", widget: "text", hint: "Keep it short - 1 to 2 sentences"}
           - {label: "Price", name: "price", widget: "string", required: false, hint: "e.g., $12.00 (leave blank for 'Price upon request')"}
