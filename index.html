@@ -19,7 +19,6 @@
             line-height: 1.6;
         }
 
-        /* Loading State */
         .loading {
             display: flex;
             justify-content: center;
@@ -40,7 +39,6 @@
             60%, 100% { content: '...'; }
         }
 
-        /* Header */
         header {
             background-color: #F2F0EB;
             padding: 1.5rem 0;
@@ -95,7 +93,6 @@
             color: #6E5A2E;
         }
 
-        /* Hero/Intro */
         .hero {
             text-align: center;
             padding: 4rem 2rem 3rem;
@@ -116,14 +113,12 @@
             margin: 0 auto;
         }
 
-        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 3rem 2rem;
         }
 
-        /* Section Titles */
         .section-title {
             font-family: 'Alice', serif;
             font-size: 2rem;
@@ -132,7 +127,6 @@
             text-align: center;
         }
 
-        /* Products Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -201,7 +195,6 @@
             margin-top: 0.3rem;
         }
 
-        /* About Section */
         .about-section {
             background-color: #FAF9F7;
             padding: 3rem 2rem;
@@ -217,7 +210,6 @@
             line-height: 1.8;
         }
 
-        /* Baker Bio */
         .baker-bio {
             display: flex;
             gap: 2rem;
@@ -248,7 +240,6 @@
             line-height: 1.8;
         }
 
-        /* Social Section */
         .social-section {
             text-align: center;
             padding: 2rem;
@@ -287,7 +278,6 @@
             fill: #FAF9F7;
         }
 
-        /* Footer */
         footer {
             background-color: #FAF9F7;
             border-top: 1px solid #E8E6E1;
@@ -297,7 +287,6 @@
             font-size: 0.9rem;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -468,7 +457,6 @@
             background-color: #96774A;
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .hamburger {
                 display: flex;
@@ -530,7 +518,6 @@
             }
         }
 
-        /* New badge using accent color */
         .new-badge {
             position: absolute;
             top: 1rem;
@@ -553,7 +540,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="header-container">
             <div class="logo">Cannelle</div>
@@ -574,27 +560,22 @@
         </div>
     </header>
 
-    <!-- Hero -->
     <section class="hero" id="home">
         <div id="heroContent" class="loading">Loading</div>
     </section>
 
-    <!-- Products -->
     <div class="container">
         <h2 class="section-title" id="products">Our Products</h2>
         <div id="productsGrid" class="loading">Loading products</div>
 
-        <!-- About Section -->
         <div class="about-section" id="about">
             <div id="aboutContent" class="loading">Loading</div>
         </div>
 
-        <!-- Baker Bio -->
         <div class="baker-bio" id="baker">
             <div id="bakerContent" class="loading">Loading</div>
         </div>
 
-        <!-- Social Section -->
         <div class="social-section">
             <h2 class="section-title">Follow Our Journey</h2>
             <div class="social-links">
@@ -614,22 +595,17 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Cannelle Bakery. All rights reserved.</p>
     </footer>
 
-    <!-- Modal -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div class="modal-body" id="modalBody">
-                <!-- Populated dynamically -->
-            </div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
-    <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script>
         if (window.netlifyIdentity) {
@@ -644,12 +620,10 @@
     </script>
 
     <script>
-        // Global state
         let products = [];
         let currentQuantity = 1;
         let currentProduct = null;
 
-        // Load all data on page load
         document.addEventListener('DOMContentLoaded', async () => {
             await Promise.all([
                 loadHero(),
@@ -659,18 +633,15 @@
             ]);
         });
 
-        // Toggle mobile menu
         function toggleMenu() {
             document.getElementById('navMenu').classList.toggle('active');
         }
 
-        // Load hero section
         async function loadHero() {
             try {
-                const response = await fetch('content/settings/hero.json');
-                if (!response.ok) throw new Error('Failed to load hero');
-                const data = await response.json();
-                
+                const res = await fetch('content/settings/hero.json');
+                if (!res.ok) throw new Error('Failed to load hero');
+                const data = await res.json();
                 document.getElementById('heroContent').innerHTML = `
                     <h1>${data.heading}</h1>
                     <p>${data.tagline}</p>
@@ -684,18 +655,12 @@
             }
         }
 
-        // Load products
         async function loadProducts() {
             try {
-                const response = await fetch('content/products.json');
-                if (!response.ok) throw new Error('Failed to load products');
-                const data = await response.json();
-                
-                // Filter available products and sort by order
-                products = data.products
-                    .filter(p => p.available)
-                    .sort((a, b) => a.order - b.order);
-                
+                const res = await fetch('content/products.json');
+                if (!res.ok) throw new Error('Failed to load products');
+                const data = await res.json();
+                products = data.products.filter(p => p.available).sort((a, b) => a.order - b.order);
                 renderProducts();
             } catch (error) {
                 console.error('Error loading products:', error);
@@ -705,15 +670,12 @@
             }
         }
 
-        // Render products
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
-            
             if (products.length === 0) {
                 grid.innerHTML = '<div class="error-message">No products available at this time.</div>';
                 return;
             }
-
             grid.className = 'products-grid';
             grid.innerHTML = products.map((product, index) => `
                 <div class="product-card" onclick="openModal(${index})">
@@ -729,13 +691,11 @@
             `).join('');
         }
 
-        // Load about section
         async function loadAbout() {
             try {
-                const response = await fetch('content/settings/about.json');
-                if (!response.ok) throw new Error('Failed to load about');
-                const data = await response.json();
-                
+                const res = await fetch('content/settings/about.json');
+                if (!res.ok) throw new Error('Failed to load about');
+                const data = await res.json();
                 document.getElementById('aboutContent').innerHTML = `
                     <h2 class="section-title">${data.title}</h2>
                     <p>${data.paragraph1}</p>
@@ -750,13 +710,11 @@
             }
         }
 
-        // Load baker bio
         async function loadBaker() {
             try {
-                const response = await fetch('content/settings/baker.json');
-                if (!response.ok) throw new Error('Failed to load baker');
-                const data = await response.json();
-                
+                const res = await fetch('content/settings/baker.json');
+                if (!res.ok) throw new Error('Failed to load baker');
+                const data = await res.json();
                 document.getElementById('bakerContent').innerHTML = `
                     <img src="${data.photo}" alt="${data.name}" class="baker-image" onerror="this.src='https://via.placeholder.com/200?text=Baker'">
                     <div class="baker-text">
@@ -770,7 +728,6 @@
             }
         }
 
-        // Open modal with product
         function openModal(productIndex) {
             currentProduct = products[productIndex];
             currentQuantity = 1;
@@ -779,28 +736,20 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Close modal
         function closeModal() {
             document.getElementById('productModal').classList.remove('active');
             document.body.style.overflow = 'auto';
             currentProduct = null;
         }
 
-        // Render modal content
         function renderModal() {
             if (!currentProduct) return;
-
-            const images = [currentProduct.mainImage, currentProduct.image1, currentProduct.image2]
-                .filter(img => img && img.trim() !== '');
-            
+            const images = [currentProduct.mainImage, currentProduct.image1, currentProduct.image2].filter(img => img && img.trim() !== '');
             const thumbnails = images.length > 1 ? `
                 <div class="modal-thumbnails">
-                    ${images.map(img => `
-                        <img src="${img}" alt="Product view" class="modal-thumbnail" onclick="changeMainImage('${img}')">
-                    `).join('')}
+                    ${images.map(img => `<img src="${img}" alt="Product view" class="modal-thumbnail" onclick="changeMainImage('${img}')">`).join('')}
                 </div>
             ` : '';
-
             const videoSection = currentProduct.videoUrl && currentProduct.videoUrl.trim() !== '' ? `
                 <div style="margin-top: 1rem;">
                     <iframe width="100%" height="200" src="${getYouTubeEmbedUrl(currentProduct.videoUrl)}" 
@@ -808,7 +757,6 @@
                         allowfullscreen style="border-radius: 8px;"></iframe>
                 </div>
             ` : '';
-
             document.getElementById('modalBody').innerHTML = `
                 <div class="modal-images">
                     <img src="${images[0]}" alt="${currentProduct.title}" class="modal-main-image" id="modalMainImage">
@@ -819,31 +767,26 @@
                     <h2>${currentProduct.title}</h2>
                     <div class="price">${currentProduct.price || 'Price upon request'}</div>
                     <p>${currentProduct.description}</p>
-                    
                     <div class="quantity-selector">
                         <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
                         <span class="quantity-value" id="quantityValue">${currentQuantity}</span>
                         <button class="quantity-btn" onclick="increaseQuantity()">+</button>
                     </div>
-                    
                     <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
                 </div>
             `;
         }
 
-        // Change main image in modal
         function changeMainImage(src) {
             document.getElementById('modalMainImage').src = src;
         }
 
-        // Get YouTube embed URL
         function getYouTubeEmbedUrl(url) {
             if (!url) return '';
             const videoId = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
             return videoId ? `https://www.youtube.com/embed/${videoId[1]}` : url;
         }
 
-        // Quantity controls
         function increaseQuantity() {
             currentQuantity++;
             document.getElementById('quantityValue').textContent = currentQuantity;
@@ -856,21 +799,13 @@
             }
         }
 
-        // Add to cart (localStorage)
         function addToCart() {
             if (!currentProduct) return;
-
-            // Get existing cart or create new
             let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            
-            // Check if product already in cart
             const existingIndex = cart.findIndex(item => item.title === currentProduct.title);
-            
             if (existingIndex > -1) {
-                // Update quantity
                 cart[existingIndex].quantity += currentQuantity;
             } else {
-                // Add new item
                 cart.push({
                     title: currentProduct.title,
                     price: currentProduct.price,
@@ -878,5 +813,16 @@
                     image: currentProduct.mainImage
                 });
             }
-            
-            // Save cart
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`Added ${currentQuantity} ${currentProduct.title} to cart!`);
+            closeModal();
+        }
+
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
