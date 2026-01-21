@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artisan Bakery</title>
+    <title>Cannelle Bakery</title>
     <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Alice&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -17,6 +17,27 @@
             background-color: #F2F0EB;
             color: #2D2D2D;
             line-height: 1.6;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            font-size: 1.1rem;
+            color: #6B6B6B;
+        }
+
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
         }
 
         /* Header */
@@ -173,6 +194,13 @@
             margin: 0;
         }
 
+        .product-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: #C4A05A;
+            margin-top: 0.3rem;
+        }
+
         /* About Section */
         .about-section {
             background-color: #FAF9F7;
@@ -189,8 +217,8 @@
             line-height: 1.8;
         }
 
-        /* Chef Bio */
-        .chef-bio {
+        /* Baker Bio */
+        .baker-bio {
             display: flex;
             gap: 2rem;
             align-items: center;
@@ -200,7 +228,7 @@
             margin-bottom: 3rem;
         }
 
-        .chef-image {
+        .baker-image {
             width: 200px;
             height: 200px;
             border-radius: 50%;
@@ -208,14 +236,14 @@
             border: 3px solid #C4A05A;
         }
 
-        .chef-text h3 {
+        .baker-text h3 {
             font-family: 'Alice', serif;
             font-size: 1.8rem;
             color: #554319;
             margin-bottom: 1rem;
         }
 
-        .chef-text p {
+        .baker-text p {
             font-size: 1.05rem;
             line-height: 1.8;
         }
@@ -376,6 +404,13 @@
             font-family: 'Alice', serif;
             font-size: 2rem;
             color: #554319;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-details .price {
+            font-size: 1.3rem;
+            color: #7A6039;
+            font-weight: 600;
             margin-bottom: 1rem;
         }
 
@@ -468,7 +503,7 @@
             .modal-body {
                 grid-template-columns: 1fr;
             }
-
+            
             .modal-content {
                 margin: 0;
                 padding: 1.5rem;
@@ -484,7 +519,7 @@
                 height: 250px;
             }
 
-            .chef-bio {
+            .baker-bio {
                 flex-direction: column;
                 text-align: center;
             }
@@ -508,13 +543,20 @@
             font-weight: 600;
             z-index: 10;
         }
+
+        .error-message {
+            text-align: center;
+            padding: 2rem;
+            color: #6B6B6B;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="header-container">
-            <div class="logo">Artisan Bakery</div>
+            <div class="logo">Cannelle</div>
             <div class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
@@ -525,7 +567,7 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#products">Products</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#chef">Baker</a></li>
+                    <li><a href="#baker">Baker</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -533,91 +575,23 @@
     </header>
 
     <!-- Hero -->
-    <section class="hero">
-        <h1>Flavor-Forward Baked Goods</h1>
-        <p>Sophisticated, artisan creations for those who appreciate exceptional quality and taste</p>
+    <section class="hero" id="home">
+        <div id="heroContent" class="loading">Loading</div>
     </section>
 
     <!-- Products -->
     <div class="container">
         <h2 class="section-title" id="products">Our Products</h2>
-        <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-card" onclick="openModal(1)">
-                <div class="product-image-container">
-                    <span class="new-badge">New</span>
-                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600" alt="Sourdough Loaf" class="product-image">
-                    <div class="product-name-band">
-                        <h3 class="product-name">Artisan Sourdough</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="product-card" onclick="openModal(2)">
-                <div class="product-image-container">
-                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600" alt="Croissant" class="product-image">
-                    <div class="product-name-band">
-                        <h3 class="product-name">Butter Croissants</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card" onclick="openModal(3)">
-                <div class="product-image-container">
-                    <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=600" alt="Cinnamon Rolls" class="product-image">
-                    <div class="product-name-band">
-                        <h3 class="product-name">Cinnamon Rolls</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card" onclick="openModal(1)">
-                <div class="product-image-container">
-                    <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=600" alt="Baguette" class="product-image">
-                    <div class="product-name-band">
-                        <h3 class="product-name">French Baguette</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 5 -->
-            <div class="product-card" onclick="openModal(2)">
-                <div class="product-image-container">
-                    <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600" alt="Danish" class="product-image">
-                    <div class="product-name-band">
-                        <h3 class="product-name">Fruit Danish</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 6 -->
-            <div class="product-card" onclick="openModal(3)">
-                <div class="product-image-container">
-                    <img src="https://images.unsplash.com/photo-1612182062366-9f871c8e0166?w=600" alt="Focaccia" class="product-image">
-                    <div class="product-name-band">
-                        <h3 class="product-name">Rosemary Focaccia</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="productsGrid" class="loading">Loading products</div>
 
         <!-- About Section -->
         <div class="about-section" id="about">
-            <h2 class="section-title">About Our Bakery</h2>
-            <p>We're a micro-bakery dedicated to crafting exceptional baked goods that elevate everyday moments. Using traditional techniques and premium ingredients, we create flavors that are both sophisticated and comforting.</p>
-            <p>Every item is baked fresh in small batches, ensuring quality and attention to detail that larger bakeries simply can't match.</p>
+            <div id="aboutContent" class="loading">Loading</div>
         </div>
 
-        <!-- Chef Bio -->
-        <div class="chef-bio" id="chef">
-            <img src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=400" alt="Chef" class="chef-image">
-            <div class="chef-text">
-                <h3>Meet the Baker</h3>
-                <p>With over 15 years of experience in artisan baking, our chef brings passion and precision to every creation. Trained in classical French techniques and inspired by modern flavor combinations, each recipe is thoughtfully developed to delight your senses.</p>
-            </div>
+        <!-- Baker Bio -->
+        <div class="baker-bio" id="baker">
+            <div id="bakerContent" class="loading">Loading</div>
         </div>
 
         <!-- Social Section -->
@@ -642,63 +616,234 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Artisan Bakery. All rights reserved.</p>
+        <p>&copy; 2026 Cannelle Bakery. All rights reserved.</p>
     </footer>
 
     <!-- Modal -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div class="modal-body">
-                <div class="modal-images">
-                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800" alt="Product" class="modal-main-image" id="modalMainImage">
-                    <div class="modal-thumbnails">
-                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=200" alt="Thumbnail 1" class="modal-thumbnail" onclick="changeMainImage(this.src)">
-                        <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=200" alt="Thumbnail 2" class="modal-thumbnail" onclick="changeMainImage(this.src)">
-                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=200" alt="Thumbnail 3" class="modal-thumbnail" onclick="changeMainImage(this.src)">
-                    </div>
-                    <div style="margin-top: 1rem;">
-                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 8px;"></iframe>
+            <div class="modal-body" id="modalBody">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        // Global state
+        let products = [];
+        let currentQuantity = 1;
+        let currentProduct = null;
+
+        // Load all data on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await Promise.all([
+                loadHero(),
+                loadProducts(),
+                loadAbout(),
+                loadBaker()
+            ]);
+        });
+
+        // Toggle mobile menu
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // Load hero section
+        async function loadHero() {
+            try {
+                const response = await fetch('content/settings/hero.json');
+                if (!response.ok) throw new Error('Failed to load hero');
+                const data = await response.json();
+                
+                document.getElementById('heroContent').innerHTML = `
+                    <h1>${data.heading}</h1>
+                    <p>${data.tagline}</p>
+                `;
+            } catch (error) {
+                console.error('Error loading hero:', error);
+                document.getElementById('heroContent').innerHTML = `
+                    <h1>Flavor-Forward Baked Goods</h1>
+                    <p>Sophisticated, artisan creations for those who appreciate exceptional quality and taste</p>
+                `;
+            }
+        }
+
+        // Load products
+        async function loadProducts() {
+            try {
+                const response = await fetch('content/products.json');
+                if (!response.ok) throw new Error('Failed to load products');
+                const data = await response.json();
+                
+                // Filter available products and sort by order
+                products = data.products
+                    .filter(p => p.available)
+                    .sort((a, b) => a.order - b.order);
+                
+                renderProducts();
+            } catch (error) {
+                console.error('Error loading products:', error);
+                document.getElementById('productsGrid').innerHTML = `
+                    <div class="error-message">Unable to load products. Please try again later.</div>
+                `;
+            }
+        }
+
+        // Render products
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            
+            if (products.length === 0) {
+                grid.innerHTML = '<div class="error-message">No products available at this time.</div>';
+                return;
+            }
+
+            grid.className = 'products-grid';
+            grid.innerHTML = products.map((product, index) => `
+                <div class="product-card" onclick="openModal(${index})">
+                    <div class="product-image-container">
+                        ${product.isNew ? '<span class="new-badge">New</span>' : ''}
+                        <img src="${product.mainImage}" alt="${product.title}" class="product-image" onerror="this.src='https://via.placeholder.com/600?text=Image+Not+Found'">
+                        <div class="product-name-band">
+                            <h3 class="product-name">${product.title}</h3>
+                            <div class="product-price">${product.price || 'Price upon request'}</div>
+                        </div>
                     </div>
                 </div>
+            `).join('');
+        }
+
+        // Load about section
+        async function loadAbout() {
+            try {
+                const response = await fetch('content/settings/about.json');
+                if (!response.ok) throw new Error('Failed to load about');
+                const data = await response.json();
+                
+                document.getElementById('aboutContent').innerHTML = `
+                    <h2 class="section-title">${data.title}</h2>
+                    <p>${data.paragraph1}</p>
+                    <p>${data.paragraph2}</p>
+                `;
+            } catch (error) {
+                console.error('Error loading about:', error);
+                document.getElementById('aboutContent').innerHTML = `
+                    <h2 class="section-title">About Our Bakery</h2>
+                    <p>Loading...</p>
+                `;
+            }
+        }
+
+        // Load baker bio
+        async function loadBaker() {
+            try {
+                const response = await fetch('content/settings/baker.json');
+                if (!response.ok) throw new Error('Failed to load baker');
+                const data = await response.json();
+                
+                document.getElementById('bakerContent').innerHTML = `
+                    <img src="${data.photo}" alt="${data.name}" class="baker-image" onerror="this.src='https://via.placeholder.com/200?text=Baker'">
+                    <div class="baker-text">
+                        <h3>${data.title}</h3>
+                        <p>${data.bio}</p>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error loading baker:', error);
+                document.getElementById('bakerContent').innerHTML = `<p>Loading baker information...</p>`;
+            }
+        }
+
+        // Open modal with product
+        function openModal(productIndex) {
+            currentProduct = products[productIndex];
+            currentQuantity = 1;
+            renderModal();
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentProduct = null;
+        }
+
+        // Render modal content
+        function renderModal() {
+            if (!currentProduct) return;
+
+            const images = [currentProduct.mainImage, currentProduct.image1, currentProduct.image2]
+                .filter(img => img && img.trim() !== '');
+            
+            const thumbnails = images.length > 1 ? `
+                <div class="modal-thumbnails">
+                    ${images.map(img => `
+                        <img src="${img}" alt="Product view" class="modal-thumbnail" onclick="changeMainImage('${img}')">
+                    `).join('')}
+                </div>
+            ` : '';
+
+            const videoSection = currentProduct.videoUrl && currentProduct.videoUrl.trim() !== '' ? `
+                <div style="margin-top: 1rem;">
+                    <iframe width="100%" height="200" src="${getYouTubeEmbedUrl(currentProduct.videoUrl)}" 
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen style="border-radius: 8px;"></iframe>
+                </div>
+            ` : '';
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="modal-images">
+                    <img src="${images[0]}" alt="${currentProduct.title}" class="modal-main-image" id="modalMainImage">
+                    ${thumbnails}
+                    ${videoSection}
+                </div>
                 <div class="modal-details">
-                    <h2 id="modalProductName">Artisan Sourdough</h2>
-                    <p id="modalProductDescription">Hand-crafted sourdough with a perfectly crisp crust and tender, airy crumb. Naturally leavened over 24 hours for complex flavor.</p>
+                    <h2>${currentProduct.title}</h2>
+                    <div class="price">${currentProduct.price || 'Price upon request'}</div>
+                    <p>${currentProduct.description}</p>
                     
                     <div class="quantity-selector">
                         <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
-                        <span class="quantity-value" id="quantityValue">1</span>
+                        <span class="quantity-value" id="quantityValue">${currentQuantity}</span>
                         <button class="quantity-btn" onclick="increaseQuantity()">+</button>
                     </div>
                     
                     <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let currentQuantity = 1;
-
-        function toggleMenu() {
-            document.getElementById('navMenu').classList.toggle('active');
+            `;
         }
 
-        function openModal(productId) {
-            document.getElementById('productModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('productModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
+        // Change main image in modal
         function changeMainImage(src) {
-            const newSrc = src.replace('w=200', 'w=800');
-            document.getElementById('modalMainImage').src = newSrc;
+            document.getElementById('modalMainImage').src = src;
         }
 
+        // Get YouTube embed URL
+        function getYouTubeEmbedUrl(url) {
+            if (!url) return '';
+            const videoId = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
+            return videoId ? `https://www.youtube.com/embed/${videoId[1]}` : url;
+        }
+
+        // Quantity controls
         function increaseQuantity() {
             currentQuantity++;
             document.getElementById('quantityValue').textContent = currentQuantity;
@@ -711,28 +856,27 @@
             }
         }
 
+        // Add to cart (localStorage)
         function addToCart() {
-            alert(`Added ${currentQuantity} item(s) to cart!`);
-        }
+            if (!currentProduct) return;
 
-        // Close modal when clicking outside
-        document.getElementById('productModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-    </script>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-            if (!user) {
-                window.netlifyIdentity.on("login", () => {
-                document.location.href = "/admin/";
+            // Get existing cart or create new
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            // Check if product already in cart
+            const existingIndex = cart.findIndex(item => item.title === currentProduct.title);
+            
+            if (existingIndex > -1) {
+                // Update quantity
+                cart[existingIndex].quantity += currentQuantity;
+            } else {
+                // Add new item
+                cart.push({
+                    title: currentProduct.title,
+                    price: currentProduct.price,
+                    quantity: currentQuantity,
+                    image: currentProduct.mainImage
                 });
             }
-            });
-        }
-</script>
-</body>
-</html>
+            
+            // Save cart
