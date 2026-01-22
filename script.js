@@ -303,7 +303,14 @@ function renderCart() {
         contentEl.innerHTML = `
             <div class="cart-empty">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 2L7.17 4H3C1.9 4 1 4.9 1 6V18C1 19.1 1.9 20 3 20H21C22.1 20 23 19.1 23 18V6C23 4.9 22.1 4 21 4H16.83L15 2H9ZM9 4H15L16.83 6H21V18H3V6H7.17L9 4Z" fill="currentColor"/>
+                    <path d="M7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <rect x="4" y="8" width="16" height="2" rx="1" fill="currentColor"/>
+                    <path d="M5 10L6 20C6.1 20.5 6.5 21 7 21H17C17.5 21 17.9 20.5 18 20L19 10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <line x1="8" y1="11" x2="9" y2="20" stroke="currentColor" stroke-width="1.2"/>
+                    <line x1="12" y1="11" x2="12" y2="20" stroke="currentColor" stroke-width="1.2"/>
+                    <line x1="16" y1="11" x2="15" y2="20" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M6.2 13H17.8" stroke="currentColor" stroke-width="1"/>
+                    <path d="M6.5 16H17.5" stroke="currentColor" stroke-width="1"/>
                 </svg>
                 <p>Your cart is empty</p>
                 <p style="font-size: 0.9rem; margin-top: 0.5rem;">Add some delicious baked goods!</p>

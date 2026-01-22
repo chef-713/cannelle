@@ -27,9 +27,20 @@ body {
 }
 
 @keyframes dots {
-    0%, 20% { content: '.'; }
-    40% { content: '..'; }
-    60%, 100% { content: '...'; }
+
+    0%,
+    20% {
+        content: '.';
+    }
+
+    40% {
+        content: '..';
+    }
+
+    60%,
+    100% {
+        content: '...';
+    }
 }
 
 /* Header */
@@ -44,14 +55,18 @@ header {
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 2rem;
 }
 
 .logo {
     font-family: 'Uncial Antiqua', cursive;
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     color: #554319;
+}
+
+nav {
+    margin-left: auto;
 }
 
 nav ul {
@@ -548,22 +563,41 @@ footer {
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    .header-container {
+        gap: 0rem;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+    }
+
     .hamburger {
         display: flex;
+        margin-left: auto;
+    }
+
+
+
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
     }
 
     nav ul {
         display: none;
         flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
         background-color: #F2F0EB;
         padding: 1rem 2rem;
         border-bottom: 1px solid #E8E6E1;
         gap: 0.5rem;
         text-align: center;
+        width: 100vw;
     }
 
     nav ul.active {
@@ -581,14 +615,14 @@ footer {
     .modal-body {
         grid-template-columns: 1fr;
     }
-    
+
     .modal-content {
         margin: 0;
         padding: 1.5rem;
         max-height: 95vh;
         overflow-y: auto;
     }
-    
+
     .modal.active {
         padding: 1rem;
     }
