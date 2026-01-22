@@ -112,6 +112,23 @@
     </div>
     <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 
+    <!-- Hidden form for Netlify detection -->
+    <form name="order" netlify netlify-honeypot="bot-field" hidden>
+        <input type="hidden" name="form-name" value="order">
+        <input type="text" name="name">
+        <input type="email" name="email">
+        <input type="tel" name="phone">
+        <input type="date" name="pickup-date">
+        <select name="pickup-time">
+            <option value="Morning (8am-12pm)">Morning</option>
+            <option value="Afternoon (12pm-4pm)">Afternoon</option>
+            <option value="Evening (4pm-8pm)">Evening</option>
+        </select>
+        <textarea name="instructions"></textarea>
+        <input type="hidden" name="cart-items">
+        <input type="hidden" name="total">
+    </form>
+
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script>
         if (window.netlifyIdentity) {

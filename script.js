@@ -345,7 +345,7 @@ function renderCart() {
         <div class="cart-footer">
             <div class="cart-total">
                 <span class="cart-total-label">Total</span>
-                <span class="cart-total-amount">${total.toFixed(2)}</span>
+                <span class="cart-total-amount">$${total.toFixed(2)}</span>
             </div>
             <div class="cart-actions">
                 <button class="cart-checkout-btn" onclick="showCheckoutForm()">Proceed to Checkout</button>
@@ -388,10 +388,15 @@ function showCheckoutForm() {
         return sum + (price * item.quantity);
     }, 0);
 
+    // Format cart items for readable display in email
+    const cartSummary = cart.map(item =>
+        `${item.title} x${item.quantity} - ${item.price || 'Price upon request'} each`
+    ).join('\n');
+
     contentEl.innerHTML = `
-        <form class="checkout-form" name="order" method="POST" data-netlify="true" onsubmit="handleCheckout(event)">
+        <form class="checkout-form" name="order" method="POST" netlify onsubmit="handleCheckout(event)">
             <input type="hidden" name="form-name" value="order">
-            <input type="hidden" name="cart-items" value='${JSON.stringify(cart)}'>
+            <input type="hidden" name="cart-items" value="${cartSummary}">
             <input type="hidden" name="total" value="${total.toFixed(2)}">
             
             <h3 style="font-family: 'Alice', serif; color: #554319; margin-bottom: 0.5rem;">Checkout</h3>
@@ -435,7 +440,7 @@ function showCheckoutForm() {
             
             <div class="cart-total" style="margin: 1rem 0;">
                 <span class="cart-total-label">Total</span>
-                <span class="cart-total-amount">${total.toFixed(2)}</span>
+                <span class="cart-total-amount">$${total.toFixed(2)}</span>
             </div>
             
             <div class="cart-actions">
