@@ -1,76 +1,76 @@
 {
   "products": [
     {
-      "title": "Artisan Sourdough",
-      "description": "Hand-crafted sourdough with a perfectly crisp crust and tender, airy crumb. Naturally leavened over 24 hours for complex flavor.",
-      "price": "$12.00",
       "mainImage": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600",
+      "price": "$12.00",
+      "available": true,
+      "order": 1,
+      "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "isNew": true,
       "image1": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=600",
       "image2": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600",
-      "videoUrl": "",
-      "isNew": true,
-      "available": true,
-      "order": 1
+      "title": "Artisan Sourdough",
+      "description": "Hand-crafted sourdough with a perfectly crisp crust and tender, airy crumb. Naturally leavened over 24 hours for complex flavor."
     },
     {
-      "title": "Butter Croissants",
-      "description": "Flaky, buttery layers that shatter with every bite. Made with premium European butter and traditional lamination techniques.",
-      "price": "$4.50",
       "mainImage": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600",
+      "price": "$4.50",
+      "available": true,
+      "order": 2,
+      "videoUrl": "",
+      "isNew": false,
       "image1": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600",
       "image2": "",
-      "videoUrl": "",
-      "isNew": false,
-      "available": true,
-      "order": 2
+      "title": "Butter Croissants",
+      "description": "Flaky, buttery layers that shatter with every bite. Made with premium European butter and traditional lamination techniques."
     },
     {
-      "title": "Cinnamon Rolls",
-      "description": "Soft, pillowy rolls swirled with cinnamon sugar and topped with cream cheese frosting. A weekend favorite.",
-      "price": "$5.00",
       "mainImage": "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=600",
-      "image1": "",
-      "image2": "",
+      "price": "$5.00",
+      "available": true,
+      "order": 3,
       "videoUrl": "",
       "isNew": false,
-      "available": true,
-      "order": 3
+      "image1": "",
+      "image2": "",
+      "title": "Cinnamon Rolls",
+      "description": "Soft, pillowy rolls swirled with cinnamon sugar and topped with cream cheese frosting. A weekend favorite."
     },
     {
-      "title": "French Baguette",
-      "description": "Classic French baguette with a golden crust and chewy interior. Perfect for sandwiches or alongside dinner.",
-      "price": "$6.00",
       "mainImage": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=600",
-      "image1": "",
-      "image2": "",
+      "price": "$6.00",
+      "available": true,
+      "order": 4,
       "videoUrl": "",
       "isNew": false,
-      "available": true,
-      "order": 4
+      "image1": "",
+      "image2": "",
+      "title": "French Baguette",
+      "description": "Classic French baguette with a golden crust and chewy interior. Perfect for sandwiches or alongside dinner."
     },
     {
-      "title": "Fruit Danish",
-      "description": "Delicate pastry filled with seasonal fruit and light custard. A refined breakfast treat.",
-      "price": "$4.75",
       "mainImage": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600",
-      "image1": "",
-      "image2": "",
+      "price": "$4.75",
+      "available": true,
+      "order": 5,
       "videoUrl": "",
       "isNew": false,
-      "available": true,
-      "order": 5
+      "image1": "",
+      "image2": "",
+      "title": "Fruit Danish",
+      "description": "Delicate pastry filled with seasonal fruit and light custard. A refined breakfast treat."
     },
     {
-      "title": "Rosemary Focaccia",
-      "description": "Herb-infused Italian flatbread with a crispy bottom and pillowy center. Drizzled with olive oil and sea salt.",
-      "price": "$8.00",
       "mainImage": "https://images.unsplash.com/photo-1612182062366-9f871c8e0166?w=600",
-      "image1": "",
-      "image2": "",
+      "price": "$8.00",
+      "available": true,
+      "order": 6,
       "videoUrl": "",
       "isNew": false,
-      "available": true,
-      "order": 6
+      "image1": "",
+      "image2": "",
+      "title": "Rosemary Focaccia",
+      "description": "Herb-infused Italian flatbread with a crispy bottom and pillowy center. Drizzled with olive oil and sea salt."
     }
   ]
 }
