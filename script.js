@@ -2,9 +2,12 @@
 let products = [];
 let currentQuantity = 1;
 let currentProduct = null;
+let cart = [];
 
 // Load all data on page load
 document.addEventListener('DOMContentLoaded', async () => {
+    loadCart();
+    updateCartCount();
     await Promise.all([
         loadHero(),
         loadProducts(),
@@ -146,28 +149,28 @@ function closeModal() {
 // Render modal content
 function renderModal() {
     if (!currentProduct) return;
-    
+
     // Collect all images
     const images = [currentProduct.mainImage, currentProduct.image1, currentProduct.image2]
         .filter(img => img && img.trim() !== '');
-    
+
     // Check if video exists
     const hasVideo = currentProduct.videoUrl && currentProduct.videoUrl.trim() !== '';
     const videoId = hasVideo ? getYouTubeVideoId(currentProduct.videoUrl) : null;
-    
+
     // Build thumbnails (images + video thumbnail if exists)
     let thumbnailsHtml = '';
     if (images.length > 1 || hasVideo) {
-        const imageThumbnails = images.slice(0, hasVideo ? 2 : 3).map(img => 
+        const imageThumbnails = images.slice(0, hasVideo ? 2 : 3).map(img =>
             `<img src="${img}" alt="Product view" class="modal-thumbnail" onclick="changeMainImage('${img}', 'image')" data-type="image">`
         ).join('');
-        
-        const videoThumbnail = hasVideo ? 
+
+        const videoThumbnail = hasVideo ?
             `<div class="modal-thumbnail video-thumbnail" onclick="changeMainImage('${videoId}', 'video')" data-type="video">
                 <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="Video">
                 <div class="play-icon">▶</div>
             </div>` : '';
-        
+
         thumbnailsHtml = `
             <div class="modal-thumbnails">
                 ${imageThumbnails}
@@ -175,7 +178,7 @@ function renderModal() {
             </div>
         `;
     }
-    
+
     document.getElementById('modalBody').innerHTML = `
         <div class="modal-images">
             <div id="modalMainContent" class="modal-main-content">
@@ -200,7 +203,7 @@ function renderModal() {
 // Change main image or video in modal
 function changeMainImage(src, type) {
     const mainContent = document.getElementById('modalMainContent');
-    
+
     if (type === 'video') {
         // Show video
         mainContent.innerHTML = `
@@ -243,7 +246,6 @@ function decreaseQuantity() {
 // Add to cart (localStorage)
 function addToCart() {
     if (!currentProduct) return;
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const existingIndex = cart.findIndex(item => item.title === currentProduct.title);
     if (existingIndex > -1) {
         cart[existingIndex].quantity += currentQuantity;
@@ -255,13 +257,227 @@ function addToCart() {
             image: currentProduct.mainImage
         });
     }
-    localStorage.setItem('cart', JSON.stringify(cart));
+    saveCart();
+    updateCartCount();
     alert(`Added ${currentQuantity} ${currentProduct.title} to cart!`);
     closeModal();
 }
 
+// Cart management functions
+function loadCart() {
+    cart = JSON.parse(localStorage.getItem('cart') || '[]');
+}
+
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function updateCartCount() {
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const countEl = document.getElementById('cartCount');
+    countEl.textContent = count;
+    if (count === 0) {
+        countEl.classList.add('hidden');
+    } else {
+        countEl.classList.remove('hidden');
+    }
+}
+
+function openCart() {
+    renderCart();
+    document.getElementById('cartSidebar').classList.add('active');
+    document.getElementById('cartOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+    document.getElementById('cartSidebar').classList.remove('active');
+    document.getElementById('cartOverlay').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+function renderCart() {
+    const contentEl = document.getElementById('cartContent');
+
+    if (cart.length === 0) {
+        contentEl.innerHTML = `
+            <div class="cart-empty">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 2L7.17 4H3C1.9 4 1 4.9 1 6V18C1 19.1 1.9 20 3 20H21C22.1 20 23 19.1 23 18V6C23 4.9 22.1 4 21 4H16.83L15 2H9ZM9 4H15L16.83 6H21V18H3V6H7.17L9 4Z" fill="currentColor"/>
+                </svg>
+                <p>Your cart is empty</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Add some delicious baked goods!</p>
+            </div>
+        `;
+        return;
+    }
+
+    const total = cart.reduce((sum, item) => {
+        const price = parseFloat(item.price?.replace('$', '') || 0);
+        return sum + (price * item.quantity);
+    }, 0);
+
+    contentEl.innerHTML = `
+        <div class="cart-items">
+            ${cart.map((item, index) => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.title}" class="cart-item-image" onerror="this.src='https://via.placeholder.com/80?text=Product'">
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.title}</div>
+                        <div class="cart-item-price">${item.price || 'Price upon request'}</div>
+                        <div class="cart-item-controls">
+                            <button class="cart-quantity-btn" onclick="updateCartQuantity(${index}, -1)">−</button>
+                            <span class="cart-quantity">${item.quantity}</span>
+                            <button class="cart-quantity-btn" onclick="updateCartQuantity(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart(${index})" title="Remove item">×</button>
+                </div>
+            `).join('')}
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-amount">${total.toFixed(2)}</span>
+            </div>
+            <div class="cart-actions">
+                <button class="cart-checkout-btn" onclick="showCheckoutForm()">Proceed to Checkout</button>
+                <button class="cart-clear-btn" onclick="clearCart()">Clear Cart</button>
+            </div>
+        </div>
+    `;
+}
+
+function updateCartQuantity(index, change) {
+    cart[index].quantity += change;
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+    saveCart();
+    updateCartCount();
+    renderCart();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    saveCart();
+    updateCartCount();
+    renderCart();
+}
+
+function clearCart() {
+    if (confirm('Are you sure you want to clear your cart?')) {
+        cart = [];
+        saveCart();
+        updateCartCount();
+        renderCart();
+    }
+}
+
+function showCheckoutForm() {
+    const contentEl = document.getElementById('cartContent');
+    const total = cart.reduce((sum, item) => {
+        const price = parseFloat(item.price?.replace('$', '') || 0);
+        return sum + (price * item.quantity);
+    }, 0);
+
+    contentEl.innerHTML = `
+        <form class="checkout-form" name="order" method="POST" data-netlify="true" onsubmit="handleCheckout(event)">
+            <input type="hidden" name="form-name" value="order">
+            <input type="hidden" name="cart-items" value='${JSON.stringify(cart)}'>
+            <input type="hidden" name="total" value="${total.toFixed(2)}">
+            
+            <h3 style="font-family: 'Alice', serif; color: #554319; margin-bottom: 0.5rem;">Checkout</h3>
+            
+            <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="pickup-date">Preferred Pickup Date *</label>
+                    <input type="date" id="pickup-date" name="pickup-date" required min="${new Date().toISOString().split('T')[0]}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pickup-time">Preferred Time *</label>
+                    <select id="pickup-time" name="pickup-time" required>
+                        <option value="">Select time</option>
+                        <option value="Morning (8am-12pm)">Morning (8am-12pm)</option>
+                        <option value="Afternoon (12pm-4pm)">Afternoon (12pm-4pm)</option>
+                        <option value="Evening (4pm-8pm)">Evening (4pm-8pm)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="instructions">Special Instructions (Optional)</label>
+                <textarea id="instructions" name="instructions" placeholder="Any dietary restrictions, customizations, etc."></textarea>
+            </div>
+            
+            <div class="cart-total" style="margin: 1rem 0;">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-amount">${total.toFixed(2)}</span>
+            </div>
+            
+            <div class="cart-actions">
+                <button type="submit" class="cart-checkout-btn">Place Order</button>
+                <button type="button" class="cart-clear-btn" onclick="renderCart()">Back to Cart</button>
+            </div>
+        </form>
+    `;
+}
+
+function handleCheckout(event) {
+    event.preventDefault();
+    const form = event.target;
+
+    fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+    })
+        .then(() => {
+            showCheckoutSuccess();
+            cart = [];
+            saveCart();
+            updateCartCount();
+            setTimeout(() => {
+                closeCart();
+            }, 3000);
+        })
+        .catch(error => {
+            alert('There was an error submitting your order. Please try again.');
+            console.error('Form submission error:', error);
+        });
+}
+
+function showCheckoutSuccess() {
+    const contentEl = document.getElementById('cartContent');
+    contentEl.innerHTML = `
+        <div class="checkout-success">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" fill="currentColor"/>
+            </svg>
+            <h3>Order Placed Successfully!</h3>
+            <p>Thank you for your order. We'll be in touch shortly to confirm your pickup details.</p>
+        </div>
+    `;
+}
+
 // Close modal when clicking outside
-document.getElementById('productModal').addEventListener('click', function(e) {
+document.getElementById('productModal').addEventListener('click', function (e) {
     if (e.target === this) {
         closeModal();
     }
