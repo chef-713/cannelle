@@ -399,7 +399,7 @@ function showCheckoutForm() {
         <form class="checkout-form" name="order" method="POST" netlify onsubmit="handleCheckout(event)">
             <input type="hidden" name="form-name" value="order">
             <textarea name="cart-items" style="display:none">${cartSummary}</textarea>
-            <input type="hidden" name="total" value="${total.toFixed(2)}">
+            <input type="hidden" name="total" value="$${total.toFixed(2)}">
             
             <h3 style="font-family: 'Alice', serif; color: #554319; margin-bottom: 0.5rem;">Checkout</h3>
             
