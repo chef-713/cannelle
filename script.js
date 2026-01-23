@@ -161,7 +161,7 @@ function renderModal() {
     // Build thumbnails (images + video thumbnail if exists)
     let thumbnailsHtml = '';
     if (images.length > 1 || hasVideo) {
-        const imageThumbnails = images.slice(0, hasVideo ? 2 : 3).map(img =>
+        const imageThumbnails = images.slice(0, 3).map(img =>
             `<img src="${img}" alt="Product view" class="modal-thumbnail" onclick="changeMainImage('${img}', 'image')" data-type="image">`
         ).join('');
 
