@@ -404,28 +404,28 @@ function showCheckoutForm() {
             <h3 style="font-family: 'Alice', serif; color: #554319; margin-bottom: 0.5rem;">Checkout</h3>
             
             <div class="form-group">
-                <label for="name">Full Name *</label>
+                <label for="name" class="required-label">Full Name</label>
                 <input type="text" id="name" name="name" required>
             </div>
             
             <div class="form-group">
-                <label for="email">Email *</label>
+                <label for="email" class="required-label">Email</label>
                 <input type="email" id="email" name="email" required>
             </div>
             
             <div class="form-group">
-                <label for="phone">Phone Number *</label>
+                <label for="phone" class="required-label">Phone Number</label>
                 <input type="tel" id="phone" name="phone" required>
             </div>
             
             <div class="form-row">
                 <div class="form-group">
-                    <label for="pickup-date">Pickup Date *</label>
+                    <label for="pickup-date" class="required-label">Pickup Date</label>
                     <input type="date" id="pickup-date" name="pickup-date" required min="${new Date().toISOString().split('T')[0]}">
                 </div>
                 
                 <div class="form-group">
-                    <label for="pickup-time">Preferred Time *</label>
+                    <label for="pickup-time" class="required-label">Preferred Time</label>
                     <select id="pickup-time" name="pickup-time" required>
                         <option value="">Select time</option>
                         <option value="Morning (8am-12pm)">Morning (8am-12pm)</option>
