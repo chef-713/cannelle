@@ -389,14 +389,16 @@ function showCheckoutForm() {
     }, 0);
 
     // Format cart items for readable display in email
-    const cartSummary = cart.map(item =>
-        `${item.title} x${item.quantity} - ${item.price || 'Price upon request'} each`
-    ).join('\n');
+    const cartSummary = cart.map(item => {
+        const price = parseFloat(item.price?.replace('$', '') || 0);
+        const subtotal = price * item.quantity;
+        return `${item.title} x${item.quantity} @ ${item.price || 'Price upon request'} each = $${subtotal.toFixed(2)}`;
+    }).join('\n');
 
     contentEl.innerHTML = `
         <form class="checkout-form" name="order" method="POST" netlify onsubmit="handleCheckout(event)">
             <input type="hidden" name="form-name" value="order">
-            <input type="hidden" name="cart-items" value="${cartSummary}">
+            <textarea name="cart-items" style="display:none">${cartSummary}</textarea>
             <input type="hidden" name="total" value="${total.toFixed(2)}">
             
             <h3 style="font-family: 'Alice', serif; color: #554319; margin-bottom: 0.5rem;">Checkout</h3>
