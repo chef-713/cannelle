@@ -451,7 +451,8 @@ footer {
     transition: border-color 0.3s;
 }
 
-.modal-thumbnail:hover {
+.modal-thumbnail:hover,
+.modal-thumbnail.selected {
     border-color: #C4A05A;
 }
 
@@ -461,6 +462,10 @@ footer {
     align-items: center;
     justify-content: center;
     background-color: #000;
+    background-clip: padding-box;
+    /* Prevents black bg from showing through transparent border */
+    overflow: hidden;
+    border-radius: 4px;
 }
 
 .video-thumbnail img {
@@ -633,6 +638,13 @@ footer {
 
     .modal-main-content {
         height: 250px;
+    }
+
+    /* dynamic sizing: 4 items fill width minus 3 gaps of 0.5rem */
+    .modal-thumbnail {
+        width: calc((100% - 1.5rem) / 4);
+        height: auto;
+        aspect-ratio: 1 / 1;
     }
 
     .baker-bio {

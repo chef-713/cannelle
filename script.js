@@ -161,12 +161,12 @@ function renderModal() {
     // Build thumbnails (images + video thumbnail if exists)
     let thumbnailsHtml = '';
     if (images.length > 1 || hasVideo) {
-        const imageThumbnails = images.slice(0, 3).map(img =>
-            `<img src="${img}" alt="Product view" class="modal-thumbnail" onclick="changeMainImage('${img}', 'image')" data-type="image">`
+        const imageThumbnails = images.slice(0, 3).map((img, index) =>
+            `<img src="${img}" alt="Product view" class="modal-thumbnail ${index === 0 ? 'selected' : ''}" onclick="changeMainImage('${img}', 'image', this)" data-type="image">`
         ).join('');
 
         const videoThumbnail = hasVideo ?
-            `<div class="modal-thumbnail video-thumbnail" onclick="changeMainImage('${videoId}', 'video')" data-type="video">
+            `<div class="modal-thumbnail video-thumbnail" onclick="changeMainImage('${videoId}', 'video', this)" data-type="video">
                 <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="Video">
                 <div class="play-icon">▶</div>
             </div>` : '';
@@ -201,7 +201,7 @@ function renderModal() {
 }
 
 // Change main image or video in modal
-function changeMainImage(src, type) {
+function changeMainImage(src, type, thumbnailEl) {
     const mainContent = document.getElementById('modalMainContent');
 
     if (type === 'video') {
@@ -220,6 +220,12 @@ function changeMainImage(src, type) {
         mainContent.innerHTML = `
             <img src="${src}" alt="Product" class="modal-main-image" id="modalMainImage">
         `;
+    }
+
+    // Update selected thumbnail visual
+    if (thumbnailEl) {
+        document.querySelectorAll('.modal-thumbnail').forEach(el => el.classList.remove('selected'));
+        thumbnailEl.classList.add('selected');
     }
 }
 
