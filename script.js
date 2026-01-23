@@ -420,7 +420,7 @@ function showCheckoutForm() {
             
             <div class="form-row">
                 <div class="form-group">
-                    <label for="pickup-date">Preferred Pickup Date *</label>
+                    <label for="pickup-date">Pickup Date *</label>
                     <input type="date" id="pickup-date" name="pickup-date" required min="${new Date().toISOString().split('T')[0]}">
                 </div>
                 
@@ -494,5 +494,80 @@ function showCheckoutSuccess() {
 document.getElementById('productModal').addEventListener('click', function (e) {
     if (e.target === this) {
         closeModal();
+    }
+});
+
+// ADD THESE FUNCTIONS TO THE END OF YOUR script.js
+
+// Contact Modal Functions
+function openContactModal() {
+    document.getElementById('contactModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeContactModal() {
+    document.getElementById('contactModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+function handleContactSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+
+    fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+    })
+        .then(() => {
+            showContactSuccess();
+            setTimeout(() => {
+                closeContactModal();
+            }, 3000);
+        })
+        .catch(error => {
+            alert('There was an error sending your message. Please try again.');
+            console.error('Form submission error:', error);
+        });
+}
+
+function showContactSuccess() {
+    const modalContent = document.querySelector('.contact-modal-content');
+    modalContent.innerHTML = `
+        <div class="contact-success">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" fill="currentColor"/>
+            </svg>
+            <h3>Message Sent!</h3>
+            <p>Thank you for reaching out. We'll get back to you soon.</p>
+        </div>
+    `;
+}
+
+// Show/hide floating contact button on scroll
+let lastScrollTop = 0;
+window.addEventListener('scroll', () => {
+    const contactButton = document.getElementById('contactButton');
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Show button after scrolling down 300px
+    if (scrollTop > 300) {
+        contactButton.classList.add('visible');
+    } else {
+        contactButton.classList.remove('visible');
+    }
+
+    lastScrollTop = scrollTop;
+});
+
+// Close contact modal when clicking outside
+document.addEventListener('DOMContentLoaded', () => {
+    const contactModal = document.getElementById('contactModal');
+    if (contactModal) {
+        contactModal.addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeContactModal();
+            }
+        });
     }
 });
