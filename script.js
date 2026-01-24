@@ -8,6 +8,14 @@ let cart = [];
 document.addEventListener('DOMContentLoaded', async () => {
     loadCart();
     updateCartCount();
+
+    // Close mobile menu when a link is clicked
+    document.querySelectorAll('#navMenu a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('navMenu').classList.remove('active');
+        });
+    });
+
     await Promise.all([
         loadHero(),
         loadProducts(),
