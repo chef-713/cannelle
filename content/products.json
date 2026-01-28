@@ -10,7 +10,7 @@
       "image1": "/images/uploads/cinnamon-roll-2.jpg",
       "image2": "",
       "title": "Cinnamon Rolls",
-      "description": "Hand-crafted sourdough with a perfectly crisp crust and tender, airy crumb. Naturally leavened over 24 hours for complex flavor."
+      "description": "Pillowy-soft brioche rolled with a rich, spiced filling and topped with a luxuriant cream cheese frosting."
     },
     {
       "mainImage": "/images/uploads/biscotti-1.jpg",
@@ -19,10 +19,10 @@
       "order": 2,
       "videoUrl": "",
       "isNew": false,
-      "image1": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600",
+      "image1": "",
       "image2": "",
       "title": "Chocolate Walnut Biscotti",
-      "description": "Flaky, buttery layers that shatter with every bite. Made with premium European butter and traditional lamination techniques."
+      "description": "Crisp yet delicate chocolate biscuit studded with walnuts. An elegant accompaniment to tea or coffee!"
     },
     {
       "mainImage": "/images/uploads/garlic-knots-1.jpg",
@@ -34,7 +34,7 @@
       "image1": "/images/uploads/garlic-knots-2.jpg",
       "image2": "",
       "title": "Garlic Knots",
-      "description": "Classic French baguette with a golden crust and chewy interior. Perfect for sandwiches or alongside dinner."
+      "description": "These soft and buttery garlic rolls are \"knot\" your average dinner roll."
     },
     {
       "mainImage": "/images/uploads/blueberry-bun-1.jpg",
@@ -46,7 +46,7 @@
       "image1": "/images/uploads/blueberry-bun-2.jpg",
       "image2": "",
       "title": "Blueberry Morning Bun",
-      "description": "Delicate pastry filled with seasonal fruit and light custard. A refined breakfast treat."
+      "description": "Delicate brioche filled with jammy blueberries and slightly sweet streusel. A refined breakfast treat."
     }
   ]
 }
