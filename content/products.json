@@ -13,7 +13,7 @@
       "description": "Hand-crafted sourdough with a perfectly crisp crust and tender, airy crumb. Naturally leavened over 24 hours for complex flavor."
     },
     {
-      "mainImage": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600",
+      "mainImage": "/images/uploads/chocolate-biscotti-1.jpg",
       "price": "$4.50",
       "available": true,
       "order": 2,
@@ -21,7 +21,7 @@
       "isNew": false,
       "image1": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600",
       "image2": "",
-      "title": "Butter Croissants",
+      "title": "Chocolate Walnut Biscotti",
       "description": "Flaky, buttery layers that shatter with every bite. Made with premium European butter and traditional lamination techniques."
     },
     {
