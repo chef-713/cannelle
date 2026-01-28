@@ -7,8 +7,8 @@
       "order": 1,
       "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       "isNew": true,
-      "image1": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=600",
-      "image2": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600",
+      "image1": "/images/uploads/cinnamon-roll-2.jpg",
+      "image2": "",
       "title": "Cinnamon Rolls",
       "description": "Hand-crafted sourdough with a perfectly crisp crust and tender, airy crumb. Naturally leavened over 24 hours for complex flavor."
     },
@@ -37,27 +37,27 @@
       "description": "Soft, pillowy rolls swirled with cinnamon sugar and topped with cream cheese frosting. A weekend favorite."
     },
     {
-      "mainImage": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=600",
-      "price": "$6.00",
+      "mainImage": "/images/uploads/garlic-knots-1.jpg",
+      "price": "$5.00",
       "available": true,
       "order": 4,
       "videoUrl": "",
       "isNew": false,
-      "image1": "",
+      "image1": "/images/uploads/garlic-knots-2.jpg",
       "image2": "",
-      "title": "French Baguette",
+      "title": "Garlic Knots",
       "description": "Classic French baguette with a golden crust and chewy interior. Perfect for sandwiches or alongside dinner."
     },
     {
-      "mainImage": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600",
+      "mainImage": "/images/uploads/blueberry-bun-1.jpg",
       "price": "$4.75",
       "available": true,
       "order": 5,
       "videoUrl": "",
       "isNew": false,
-      "image1": "",
+      "image1": "/images/uploads/blueberry-bun-2.jpg",
       "image2": "",
-      "title": "Fruit Danish",
+      "title": "Blueberry Morning Bun",
       "description": "Delicate pastry filled with seasonal fruit and light custard. A refined breakfast treat."
     },
     {
