@@ -427,10 +427,7 @@ function showCheckoutForm() {
                 <input type="email" id="email" name="email" required>
             </div>
             
-            <div class="form-group">
-                <label for="phone" class="required-label">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
+
             
             <div class="form-row">
                 <div class="form-group">
@@ -452,6 +449,14 @@ function showCheckoutForm() {
             <div class="form-group">
                 <label for="instructions">Special Instructions (Optional)</label>
                 <textarea id="instructions" name="instructions" placeholder="Any dietary restrictions, customizations, etc."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="payment-method" class="required-label">Payment Method</label>
+                <select id="payment-method" name="payment-method" required>
+                    <option value="E-transfer">E-transfer</option>
+                    <option value="Cash on pickup">Cash on pickup (Exact change please)</option>
+                </select>
             </div>
             
             <div class="cart-total" style="margin: 1rem 0;">
