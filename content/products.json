@@ -1,76 +1,52 @@
 {
   "products": [
     {
-      "mainImage": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600",
-      "price": "$12.00",
+      "mainImage": "/images/uploads/cinnamon-roll-1.jpg",
+      "price": "$10.00",
       "available": true,
       "order": 1,
-      "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "videoUrl": "",
       "isNew": true,
-      "image1": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=600",
-      "image2": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600",
-      "title": "Artisan Sourdough",
-      "description": "Hand-crafted sourdough with a perfectly crisp crust and tender, airy crumb. Naturally leavened over 24 hours for complex flavor."
+      "image1": "/images/uploads/cinnamon-roll-2.jpg",
+      "image2": "",
+      "title": "Cinnamon Rolls",
+      "description": "Pillowy-soft brioche rolled with a rich, spiced filling and topped with a luxuriant cream cheese frosting."
     },
     {
-      "mainImage": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600",
+      "mainImage": "/images/uploads/biscotti-1.jpg",
       "price": "$4.50",
       "available": true,
       "order": 2,
       "videoUrl": "",
       "isNew": false,
-      "image1": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600",
-      "image2": "",
-      "title": "Butter Croissants",
-      "description": "Flaky, buttery layers that shatter with every bite. Made with premium European butter and traditional lamination techniques."
-    },
-    {
-      "mainImage": "/images/uploads/cinnamon-roll-.jpg",
-      "price": "$5.00",
-      "available": true,
-      "order": 3,
-      "videoUrl": "",
-      "isNew": false,
       "image1": "",
       "image2": "",
-      "title": "Cinnamon Rolls",
-      "description": "Soft, pillowy rolls swirled with cinnamon sugar and topped with cream cheese frosting. A weekend favorite."
+      "title": "Chocolate Walnut Biscotti",
+      "description": "Crisp yet delicate chocolate biscuit studded with walnuts. An elegant accompaniment to tea or coffee!"
     },
     {
-      "mainImage": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=600",
-      "price": "$6.00",
+      "mainImage": "/images/uploads/garlic-knots-1.jpg",
+      "price": "$5.00",
       "available": true,
       "order": 4,
       "videoUrl": "",
       "isNew": false,
-      "image1": "",
+      "image1": "/images/uploads/garlic-knots-2.jpg",
       "image2": "",
-      "title": "French Baguette",
-      "description": "Classic French baguette with a golden crust and chewy interior. Perfect for sandwiches or alongside dinner."
+      "title": "Garlic Knots",
+      "description": "These soft and buttery garlic rolls are \"knot\" your average dinner roll."
     },
     {
-      "mainImage": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600",
+      "mainImage": "/images/uploads/blueberry-bun-1.jpg",
       "price": "$4.75",
       "available": true,
       "order": 5,
       "videoUrl": "",
       "isNew": false,
-      "image1": "",
+      "image1": "/images/uploads/blueberry-bun-2.jpg",
       "image2": "",
-      "title": "Fruit Danish",
-      "description": "Delicate pastry filled with seasonal fruit and light custard. A refined breakfast treat."
-    },
-    {
-      "mainImage": "/images/uploads/pexels-kelly-14281603.jpg",
-      "price": "$8.00",
-      "available": true,
-      "order": 6,
-      "videoUrl": "https://www.youtube.com/watch?v=67dDEr24xTs",
-      "isNew": true,
-      "image1": "/images/uploads/pexels-frostee-lens-ug-2150016714-32097307.jpg",
-      "image2": "/images/uploads/pexels-armin-forster-6000542-9203493.jpg",
-      "title": "Rosemary Focaccia",
-      "description": "Herb-infused Italian flatbread with a crispy bottom and pillowy center. Drizzled with olive oil and sea salt."
+      "title": "Blueberry Morning Bun",
+      "description": "Delicate brioche filled with jammy blueberries and slightly sweet streusel. A refined breakfast treat."
     }
   ]
 }
