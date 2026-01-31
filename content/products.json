@@ -2,7 +2,7 @@
   "products": [
     {
       "mainImage": "/images/uploads/cinnamon-roll-1.jpg",
-      "price": "$10.00",
+      "price": "$10.00 / two",
       "available": true,
       "order": 1,
       "videoUrl": "",
