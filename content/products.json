@@ -26,7 +26,7 @@
     },
     {
       "mainImage": "/images/uploads/garlic-knots-1.jpg",
-      "price": "$5.00",
+      "price": "$5.00 / half dozen",
       "available": true,
       "order": 4,
       "videoUrl": "",
@@ -38,7 +38,7 @@
     },
     {
       "mainImage": "/images/uploads/blueberry-bun-1.jpg",
-      "price": "$4.75",
+      "price": "$10.00 / two",
       "available": true,
       "order": 5,
       "videoUrl": "",
