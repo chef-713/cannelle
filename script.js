@@ -203,7 +203,21 @@ function renderModal() {
                 <span class="quantity-value" id="quantityValue">${currentQuantity}</span>
                 <button class="quantity-btn" onclick="increaseQuantity()">+</button>
             </div>
-            <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+            <button class="add-to-cart-btn" onclick="addToCart()">Add to Basket</button>
+            <div class="help-icon-wrapper" style="margin-top: 1rem; text-align: center;">
+                <span onclick="toggleHelpTooltip(event)" style="cursor: pointer; color: #7A6039; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+                    <svg class="help-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 17v-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 14c0-2 2-2.5 2-4.5a2.5 2.5 0 10-5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    How ordering works
+                </span>
+                <div class="help-tooltip" id="helpTooltip">
+                    <strong>How Orders Work</strong><br><br>
+                    Place your order any time during the week until <strong>Thursday 9:00 pm</strong>. We'll prepare it fresh and have it ready for pickup on <strong>Saturday</strong> at your selected time!
+                </div>
+            </div>
         </div>
     `;
 }
@@ -244,6 +258,25 @@ function getYouTubeVideoId(url) {
     return match ? match[1] : null;
 }
 
+// Toggle help tooltip visibility
+function toggleHelpTooltip(event) {
+    event.stopPropagation();
+    const tooltip = document.getElementById('helpTooltip');
+    tooltip.classList.toggle('visible');
+
+    // Close tooltip when clicking elsewhere
+    const closeTooltip = (e) => {
+        if (!tooltip.contains(e.target) && e.target !== event.currentTarget) {
+            tooltip.classList.remove('visible');
+            document.removeEventListener('click', closeTooltip);
+        }
+    };
+
+    if (tooltip.classList.contains('visible')) {
+        setTimeout(() => document.addEventListener('click', closeTooltip), 0);
+    }
+}
+
 // Quantity controls
 function increaseQuantity() {
     currentQuantity++;
@@ -273,7 +306,7 @@ function addToCart() {
     }
     saveCart();
     updateCartCount();
-    alert(`Added ${currentQuantity} ${currentProduct.title} to cart!`);
+    alert(`Added ${currentQuantity} ${currentProduct.title} to basket!`);
     closeModal();
 }
 
@@ -326,7 +359,7 @@ function renderCart() {
                     <path d="M6.2 13H17.8" stroke="currentColor" stroke-width="1"/>
                     <path d="M6.5 16H17.5" stroke="currentColor" stroke-width="1"/>
                 </svg>
-                <p>Your cart is empty</p>
+                <p>Your basket is empty</p>
                 <p style="font-size: 0.9rem; margin-top: 0.5rem;">Add some delicious baked goods!</p>
             </div>
         `;
@@ -363,7 +396,7 @@ function renderCart() {
             </div>
             <div class="cart-actions">
                 <button class="cart-checkout-btn" onclick="showCheckoutForm()">Proceed to Checkout</button>
-                <button class="cart-clear-btn" onclick="clearCart()">Clear Cart</button>
+                <button class="cart-clear-btn" onclick="clearCart()">Clear Basket</button>
             </div>
         </div>
     `;
@@ -387,12 +420,68 @@ function removeFromCart(index) {
 }
 
 function clearCart() {
-    if (confirm('Are you sure you want to clear your cart?')) {
+    if (confirm('Are you sure you want to clear your basket?')) {
         cart = [];
         saveCart();
         updateCartCount();
         renderCart();
     }
+}
+
+// Calculate available Saturdays for pickup
+// Cutoff: Thursday 9pm Eastern - after this, the first available Saturday is the following week
+function getPickupSaturdays(count = 4) {
+    // Get current time in Eastern timezone
+    const now = new Date();
+    const easternTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+
+    const dayOfWeek = easternTime.getDay(); // 0 = Sunday, 6 = Saturday
+    const currentHour = easternTime.getHours();
+
+    // Calculate days until next Saturday
+    let daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+    if (daysUntilSaturday === 0) {
+        daysUntilSaturday = 7; // If today is Saturday, get next Saturday
+    }
+
+    // Check if we've passed the Thursday 9pm cutoff for this upcoming Saturday
+    // Thursday is day 4, Saturday is day 6, so Thursday is 2 days before Saturday
+    const isThursday = dayOfWeek === 4;
+    const isPastThursday = dayOfWeek === 5 || dayOfWeek === 6; // Friday or Saturday
+    const isThursdayAfterCutoff = isThursday && currentHour >= 21; // 9pm = 21:00
+
+    if (isPastThursday || isThursdayAfterCutoff) {
+        // Past cutoff, add 7 more days to get the following Saturday
+        daysUntilSaturday += 7;
+    }
+
+    // Generate array of Saturdays
+    const saturdays = [];
+    for (let i = 0; i < count; i++) {
+        const saturday = new Date(easternTime);
+        saturday.setDate(easternTime.getDate() + daysUntilSaturday + (i * 7));
+        saturdays.push(saturday);
+    }
+
+    return saturdays;
+}
+
+// Format date as YYYY-MM-DD for input value
+function formatDateForInput(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// Format date for display (e.g., "Sat, Feb 7, 2026")
+function formatDateForDisplay(date) {
+    return date.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
 }
 
 function showCheckoutForm() {
@@ -408,6 +497,12 @@ function showCheckoutForm() {
         const subtotal = price * item.quantity;
         return `${item.title} x${item.quantity} @ ${item.price || 'Price upon request'} each = $${subtotal.toFixed(2)}`;
     }).join('\n');
+
+    // Get the next 4 available Saturdays
+    const pickupSaturdays = getPickupSaturdays(4);
+    const saturdayOptions = pickupSaturdays.map(sat =>
+        `<option value="${formatDateForInput(sat)}">${formatDateForDisplay(sat)}</option>`
+    ).join('');
 
     contentEl.innerHTML = `
         <form class="checkout-form" name="order" method="POST" netlify onsubmit="handleCheckout(event)">
@@ -427,12 +522,18 @@ function showCheckoutForm() {
                 <input type="email" id="email" name="email" required>
             </div>
             
-
+            <div class="form-group">
+                <label for="phone" class="required-label">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
             
             <div class="form-row">
                 <div class="form-group">
                     <label for="pickup-date" class="required-label">Pickup Date</label>
-                    <input type="date" id="pickup-date" name="pickup-date" required min="${new Date().toISOString().split('T')[0]}">
+                    <select id="pickup-date" name="pickup-date" required>
+                        ${saturdayOptions}
+                    </select>
                 </div>
                 
                 <div class="form-group">
@@ -447,15 +548,10 @@ function showCheckoutForm() {
             </div>
             
             <div class="form-group">
-                <label for="instructions">Special Instructions (Optional)</label>
-                <textarea id="instructions" name="instructions" placeholder="Any dietary restrictions, customizations, etc."></textarea>
-            </div>
-            
-            <div class="form-group">
                 <label for="payment-method" class="required-label">Payment Method</label>
                 <select id="payment-method" name="payment-method" required>
                     <option value="E-transfer">E-transfer</option>
-                    <option value="Cash on pickup">Cash on pickup (Exact change please)</option>
+                    <option value="Cash on pickup">Cash on pickup</option>
                 </select>
             </div>
             
