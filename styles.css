@@ -228,6 +228,10 @@ nav a:hover {
     color: #554319;
 }
 
+#order-info-list {
+    padding-left: 1.5rem;
+}
+
 /* Help Icon Tooltip */
 .help-icon-wrapper {
     position: relative;
