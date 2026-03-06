@@ -47,6 +47,15 @@
       "image2": "",
       "title": "Blueberry Morning Bun",
       "description": "Delicate brioche filled with jammy blueberries and slightly sweet streusel. A refined breakfast treat."
+    },
+    {
+      "isNew": false,
+      "available": true,
+      "order": 0,
+      "title": "Anise Orange Biscotti",
+      "price": "$4.00 / 4",
+      "mainImage": "/images/uploads/anise-biscotti-2.jpg",
+      "description": "Crisp biscuit flavoured with crushed anise seeds and an orange-scented drizzle."
     }
   ]
 }
