@@ -10,7 +10,7 @@
       "image1": "/images/uploads/cinnamon-roll-2.jpg",
       "image2": "",
       "title": "Cinnamon Rolls",
-      "description": "Pillowy-soft brioche rolled with a rich, spiced filling and topped with a luxurious cream cheese frosting.\nIngredients: flour, whole milk, brown sugar, butter, powdered sugar, cream cheese, egg, white sugar, cinnamon, salt, yeast, vanilla extract."
+      "description": "Pillowy-soft brioche rolled with a rich, spiced filling and topped with a luxurious cream cheese frosting.\n<p>Ingredients: flour, whole milk, brown sugar, butter, powdered sugar, cream cheese, egg, white sugar, cinnamon, salt, yeast, vanilla extract.</p>"
     },
     {
       "mainImage": "/images/uploads/biscotti-1.jpg",
@@ -22,7 +22,7 @@
       "image1": "",
       "image2": "",
       "title": "Chocolate Walnut Biscotti",
-      "description": "Crunchy chocolate biscuit studded with walnuts. An elegant accompaniment to tea or coffee!\nIngredients: flour, brown sugar, walnuts, white sugar, cocoa, egg, baking soda, salt, dark chocolate."
+      "description": "Crunchy chocolate biscuit studded with walnuts. An elegant accompaniment to tea or coffee!\n<p>Ingredients: flour, brown sugar, walnuts, white sugar, cocoa, egg, baking soda, salt, dark chocolate."
     },
     {
       "mainImage": "/images/uploads/garlic-knots-1.jpg",
