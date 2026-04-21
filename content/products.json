@@ -22,7 +22,7 @@
       "image1": "",
       "image2": "",
       "title": "Chocolate Walnut Biscotti",
-      "description": "Crunchy chocolate biscuit studded with walnuts. An elegant accompaniment to tea or coffee!\n<p>Ingredients: flour, brown sugar, walnuts, white sugar, cocoa, egg, baking soda, salt, dark chocolate."
+      "description": "Crunchy chocolate biscuit studded with walnuts. An elegant accompaniment to tea or coffee!\n<p>Ingredients: flour, brown sugar, walnuts, white sugar, cocoa, egg, baking soda, salt, dark chocolate.</p>"
     },
     {
       "mainImage": "/images/uploads/garlic-knots-1.jpg",
@@ -34,7 +34,7 @@
       "image1": "/images/uploads/garlic-knots-2.jpg",
       "image2": "",
       "title": "Garlic Knots",
-      "description": "These soft and buttery garlic rolls are \"knot\" your average dinner roll.\nIngredients: flour, whole milk, butter, egg, white sugar, salt, yeast, garlic powder, fresh garlic, parsley flakes."
+      "description": "These soft and buttery garlic rolls are \"knot\" your average dinner roll.\n<p>Ingredients: flour, whole milk, butter, egg, white sugar, salt, yeast, garlic powder, fresh garlic, parsley flakes.</p>"
     },
     {
       "mainImage": "/images/uploads/blueberry-bun-1.jpg",
@@ -46,7 +46,7 @@
       "image1": "/images/uploads/blueberry-bun-2.jpg",
       "image2": "",
       "title": "Blueberry Morning Bun",
-      "description": "Delicate brioche filled with jammy blueberries and slightly sweet streusel. A refined breakfast treat.\nIngredients: flour, whole milk, blueberries, butter, egg, white sugar, brown sugar, salt, yeast, cornstarch, lemon juice."
+      "description": "Delicate brioche filled with jammy blueberries and slightly sweet streusel. A refined breakfast treat.\n<p>Ingredients: flour, whole milk, blueberries, butter, egg, white sugar, brown sugar, salt, yeast, cornstarch, lemon juice.</p>"
     },
     {
       "isNew": true,
@@ -55,7 +55,7 @@
       "title": "Anise Orange Biscotti",
       "price": "$4.00 / four",
       "mainImage": "/images/uploads/anise-biscotti-2.jpg",
-      "description": "Crisp biscuit flavoured with crushed anise seeds and an orange-scented drizzle.\nIngredients: flour, white sugar, butter, egg, powdered sugar, orange juice, baking powder, salt, anise seeds, orange zest. "
+      "description": "Crisp biscuit flavoured with crushed anise seeds and an orange-scented drizzle.\n<p>Ingredients: flour, white sugar, butter, egg, powdered sugar, orange juice, baking powder, salt, anise seeds, orange zest.</p>"
     }
   ]
 }
